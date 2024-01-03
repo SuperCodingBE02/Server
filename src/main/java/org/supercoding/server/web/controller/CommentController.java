@@ -30,24 +30,24 @@ public class CommentController {
         return ResponseEntity.ok().body(allComment);
     }
 
-    @PostMapping("/{post_id}")
+    @PostMapping("/{postId}")
     @Operation(summary = "댓글 작성")
     public ResponseEntity<CommonResponseDto> addComment(
             @Schema(description = "게시글 ID", example = "1")
-            @PathVariable Long post_id,
+            @PathVariable Long postId,
             @RequestBody CommentDto commentDto) {
         log.info("POST 댓글 작성 요청이 들어왔습니다. commentDto = " + commentDto);
 
-        CommonResponseDto addCommentResult = commentService.addComment(commentDto, post_id);
+        CommonResponseDto addCommentResult = commentService.addComment(commentDto, postId);
         log.info(("POST 댓글 작성 요청 결과 = " + addCommentResult));
 
         return ResponseEntity.ok().body(addCommentResult);
     }
 
-    @PutMapping("/editContent/{comment_id}")
+    @PutMapping("/editContent/{commentId}")
     @Operation(summary = "댓글 수정")
-    public ResponseEntity<CommonResponseDto> editComment(@PathVariable Long comment_id, @RequestBody String editContent){
-        CommonResponseDto editCommentResult = commentService.editComment(editContent, comment_id);
+    public ResponseEntity<CommonResponseDto> editComment(@PathVariable Long commentId, @RequestBody String editContent){
+        CommonResponseDto editCommentResult = commentService.editComment(editContent, commentId);
 
         return ResponseEntity.ok().body(editCommentResult);
     }
