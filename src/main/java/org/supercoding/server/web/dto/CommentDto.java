@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.supercoding.server.web.entity.CommentEntity;
+import org.supercoding.server.web.entity.PostEntity;
 
 import java.util.Date;
 
@@ -13,14 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class CommentDto {
-    private Long postId;
+    private PostEntity post;
     private String author;
     private String content;
     private Date createAt;
 
     public static CommentDto toCommentDto(CommentEntity commentEntity) {
         CommentDto commentDto = new CommentDto();
-        commentDto.setPostId(commentEntity.getPost().getId());
+        commentDto.setPost(commentEntity.getPost());
         commentDto.setAuthor(commentEntity.getAuthor());
         commentDto.setContent(commentEntity.getContent());
         commentDto.setCreateAt(commentEntity.getCreateAt());
