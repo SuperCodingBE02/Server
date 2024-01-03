@@ -26,9 +26,9 @@ public class CommentService {
         return allCommentDto;
     }
 
-    public CommonResponseDto addComment(CommentDto commentDto, Long post_id) {
+    public CommonResponseDto addComment(CommentDto commentDto, Long postId) {
 
-        PostEntity postEntity = postRepository.findById(post_id).orElse(null);
+        PostEntity postEntity = postRepository.findById(postId).orElse(null);
 
         if(postEntity == null){
             CommonResponseDto addCommentResponse = new CommonResponseDto();
@@ -49,5 +49,23 @@ public class CommentService {
         }
 
         return addCommentResponse;
+    }
+
+    public CommonResponseDto editComment(String editContent, Long commentId) {
+        CommentEntity targetComment = commentRepository.findById(commentId).orElse(null);
+
+        if(targetComment == null){
+            CommonResponseDto addCommentResponse = new CommonResponseDto();
+            addCommentResponse.setMessage("해당하는 댓글이 존재하지 않습니다.");
+            return addCommentResponse;
+        }
+
+        targetComment.setContent(editContent);
+
+        commentRepository.save(targetComment);
+
+        CommonResponseDto editCommentResponse = new CommonResponseDto();
+        editCommentResponse.setMessage("댓글이 성공적으로 수정되었습니다.");
+        return editCommentResponse;
     }
 }
