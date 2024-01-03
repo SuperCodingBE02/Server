@@ -26,6 +26,6 @@ public class PostEntity {
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false)
-    private Date createDate;
+    @Column(name = "create_at", nullable = false)
+    private Date createAt;
 }

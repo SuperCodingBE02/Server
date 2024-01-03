@@ -20,12 +20,12 @@ public class CommentEntity {
     private PostEntity post;
 
     @Column(nullable = false)
-    private String user_email;
+    private String author;
 
     @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false)
-    private Date createDate;
+    @Column(name = "create_at", nullable = false)
+    private Date createAt;
 }
