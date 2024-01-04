@@ -1,12 +1,13 @@
 package org.supercoding.server.web.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.supercoding.server.dto.UserDTO;
 
 @Entity
-@Setter
-@Getter
+@Data
 @Table(name = "user_table")
 public class UserEntity {
     @Id
@@ -18,4 +19,11 @@ public class UserEntity {
 
     @Column
     private String password;
+
+    public UserDTO toDTO(){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(getEmail());
+        userDTO.setPassword(getPassword());
+        return userDTO;
+    }
 }
