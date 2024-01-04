@@ -1,11 +1,11 @@
-package org.supercoding.server.controller;
+package org.supercoding.server.web.controller;
 
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.supercoding.server.dto.UserDTO;
+import org.supercoding.server.web.dto.UserDTO;
 import org.supercoding.server.service.LoginService;
 import org.supercoding.server.web.entity.UserEntity;
 
@@ -13,7 +13,7 @@ import org.supercoding.server.web.entity.UserEntity;
 @Data
 @Slf4j
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class LoginController {
     private final LoginService loginService;
 
