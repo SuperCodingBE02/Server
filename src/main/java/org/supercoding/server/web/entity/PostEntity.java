@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
@@ -28,4 +29,7 @@ public class PostEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_at", nullable = false)
     private Date createAt;
+
+    @OneToMany(mappedBy = "post")
+    private List<CommentEntity> comments;
 }
