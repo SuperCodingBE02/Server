@@ -32,10 +32,18 @@ public class PostEntity {
     @Column(name = "create_at", nullable = false)
     private Date createAt;
 
+
     public PostEntity(PostRequestDto postRequestDto) {
         this.user = postRequestDto.getUser();
         this.content = postRequestDto.getContent();
         this.title = postRequestDto.getTitle();
         this.createAt = postRequestDto.getCreateAt();
+    }
+
+    public PostEntity update(PostRequestDto postRequestDto){
+        this.title = postRequestDto.getTitle();
+        this.content = postRequestDto.getContent();
+
+        return this;
     }
 }

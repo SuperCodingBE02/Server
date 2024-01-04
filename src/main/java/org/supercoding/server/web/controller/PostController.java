@@ -22,9 +22,14 @@ public class PostController {
     }
 
     //TODO 게시판 수정
+    @PutMapping("/:{postId}")
+    public ResponseEntity<CommonResponseDto> updatePost(@PathVariable Long postId, @RequestBody PostRequestDto postRequestDto) {
+
+        return ResponseEntity.ok().body(postService.updatePost(postId, postRequestDto));
+    }
 
     //TODO 게시판 삭제  @PathVariable , @RequestParam <<
-    @PostMapping("/{postId}")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<CommonResponseDto> deletePost(@PathVariable Long postId){
 
         return ResponseEntity.ok().body(postService.deletePost(postId));
