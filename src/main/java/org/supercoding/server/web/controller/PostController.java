@@ -3,10 +3,7 @@ package org.supercoding.server.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.supercoding.server.service.PostService;
 import org.supercoding.server.web.dto.CommonResponseDto;
 import org.supercoding.server.web.dto.PostRequestDto;
@@ -26,5 +23,10 @@ public class PostController {
 
     //TODO 게시판 수정
 
-    //TODO 게시판 삭제
+    //TODO 게시판 삭제  @PathVariable , @RequestParam <<
+    @PostMapping("/{postId}")
+    public ResponseEntity<CommonResponseDto> deletePost(@PathVariable Long postId){
+
+        return ResponseEntity.ok().body(postService.deletePost(postId));
+    }
 }

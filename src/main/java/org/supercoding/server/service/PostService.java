@@ -23,12 +23,27 @@ public class PostService {
 
         CommonResponseDto commonResponseDto = new CommonResponseDto();
         if(savePostEntity.getId()!=null) {
-            commonResponseDto.setMessage("게시물이 성공적으로 작성되었습니다.");
+            commonResponseDto.setMessage("게시물이 성공적으로 작성 되었습니다.");
         }else{
             commonResponseDto.setMessage("게시물 작성에 실패 했습니다.");
         }
 
         return commonResponseDto;
-
     }
+
+    public CommonResponseDto deletePost(long postId){
+        //1. 타겟 게시물 찾기
+        PostEntity targetPost = postRepository.findById(postId).orElse(null);
+        CommonResponseDto commonResponseDto = new CommonResponseDto();
+
+        if(targetPost!=null){
+            postRepository.deleteById(postId);
+            commonResponseDto.setMessage("게시물을 삭제 하였습니다.");
+        }else{
+            commonResponseDto.setMessage("게시물이 존재하지 않습니다.");
+        }
+
+        return commonResponseDto;
+    }
+
 }
