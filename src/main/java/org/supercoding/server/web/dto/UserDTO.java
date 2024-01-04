@@ -1,4 +1,4 @@
-package org.supercoding.server.dto;
+package org.supercoding.server.web.dto;
 
 
 import lombok.*;

@@ -2,9 +2,7 @@ package org.supercoding.server.web.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.supercoding.server.dto.UserDTO;
+import org.supercoding.server.web.dto.UserDTO;
 
 @Entity
 @Data

@@ -1,21 +1,19 @@
-package org.supercoding.server.controller;
+package org.supercoding.server.web.controller;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.supercoding.server.dto.UserDTO;
+import org.supercoding.server.web.dto.UserDTO;
 import org.supercoding.server.service.RegisterService;
 import org.supercoding.server.web.entity.UserEntity;
 
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 @Slf4j
 public class RegisterController {
     private RegisterService registerService;
