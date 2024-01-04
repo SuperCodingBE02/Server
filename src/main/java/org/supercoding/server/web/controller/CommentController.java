@@ -46,7 +46,10 @@ public class CommentController {
 
     @PutMapping("/editContent/{commentId}")
     @Operation(summary = "댓글 수정")
-    public ResponseEntity<CommonResponseDto> editComment(@PathVariable Long commentId, @RequestBody String editContent){
+    public ResponseEntity<CommonResponseDto> editComment(
+            @PathVariable Long commentId,
+            @Schema(description = "변경될 댓글 내용", example = "수정된 내용")
+            @RequestParam String editContent){
         CommonResponseDto editCommentResult = commentService.editComment(editContent, commentId);
 
         return ResponseEntity.ok().body(editCommentResult);
