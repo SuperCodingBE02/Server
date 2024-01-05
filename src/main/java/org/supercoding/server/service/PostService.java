@@ -2,13 +2,19 @@ package org.supercoding.server.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.supercoding.server.repository.PostRepository;
+import org.supercoding.server.web.dto.CommentDto;
 import org.supercoding.server.web.dto.CommonResponseDto;
 import org.supercoding.server.web.dto.PostRequestDto;
 import org.supercoding.server.web.dto.PostResponseDto;
+import org.supercoding.server.web.entity.CommentEntity;
 import org.supercoding.server.web.entity.PostEntity;
 import org.supercoding.server.web.entity.UserEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +22,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public CommonResponseDto addPost(PostRequestDto postRequestDto){
-        UserEntity user = new UserEntity(1L, "김소은", "1234");
+        UserEntity user = new UserEntity(2L, "김소은", "1234");
         postRequestDto.setUser(user);
 
         PostEntity postEntity = new PostEntity(postRequestDto);
@@ -65,6 +71,35 @@ public class PostService {
         return commonResponseDto;
     }
 
+    public List<PostResponseDto> findAllPosts() {
+        List<PostEntity> allPostEntity = postRepository.findAll();
+        List<PostResponseDto> allPostDto = new ArrayList<>();
+
+        CommonResponseDto commonResponseDto = new CommonResponseDto();
+
+        for(PostEntity post:allPostEntity){
+            allPostDto.add(PostResponseDto.toPostResponseDto(post));
+        }
+
+        if(allPostEntity.isEmpty()){
+            commonResponseDto.setMessage("게시물이 존재하지 않습니다.");
+        }
+        return allPostDto;
+
+    }
+
+    public List<PostResponseDto> findByEmail(String email) {
+        List<PostEntity> targetPostEntity = postRepository.findByUser_Email(email);
+        List<PostResponseDto> targetPostDto = new ArrayList<>();
+
+        CommonResponseDto commonResponseDto = new CommonResponseDto();
+
+        for(PostEntity post : targetPostEntity){
+            targetPostDto.add(PostResponseDto.toPostResponseDto(post));
+        }
+
+        return targetPostDto;
+    }
 }
 
 
