@@ -2,16 +2,18 @@ package org.supercoding.server.web.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "user_table")
 public class UserEntity {
     @Id
@@ -30,6 +32,15 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     @Schema(description = "유저 작성 게시물")
     private List<PostEntity> posts;
+
+    private String roles;
+
+    public List<String> getRoleList() {
+        if (!this.roles.isEmpty()) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 
     public UserEntity(Long id, String email, String password) {
         this.id = id;
