@@ -3,7 +3,9 @@ package org.supercoding.server.web.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.supercoding.server.web.dto.PostRequestDto;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 @Table(name = "post_table")
 public class PostEntity {
     @Id
@@ -36,7 +39,24 @@ public class PostEntity {
     @Schema(description = "작성일")
     private Date createAt;
 
+
     @OneToMany(mappedBy = "post")
     @Schema(description = "게시물에 달린 댓글")
     private List<CommentEntity> comments;
+
+
+    public PostEntity(PostRequestDto postRequestDto) {
+        this.user = postRequestDto.getUser();
+        this.content = postRequestDto.getContent();
+        this.title = postRequestDto.getTitle();
+        this.createAt = postRequestDto.getCreateAt();
+    }
+
+    public PostEntity update(PostRequestDto postRequestDto){
+        this.title = postRequestDto.getTitle();
+        this.content = postRequestDto.getContent();
+
+        return this;
+    }
+
 }

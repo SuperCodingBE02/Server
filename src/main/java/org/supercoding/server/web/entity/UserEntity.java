@@ -3,6 +3,7 @@ package org.supercoding.server.web.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 @Table(name = "user_table")
 public class UserEntity {
     @Id
@@ -28,4 +30,10 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     @Schema(description = "유저 작성 게시물")
     private List<PostEntity> posts;
+
+    public UserEntity(Long id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
 }
