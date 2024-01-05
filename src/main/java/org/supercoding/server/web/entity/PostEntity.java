@@ -2,13 +2,16 @@ package org.supercoding.server.web.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.supercoding.server.web.dto.PostRequestDto;
 
 import java.util.Date;
 
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 @Table(name = "post_table")
 public class PostEntity {
     @Id
@@ -28,4 +31,19 @@ public class PostEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_at", nullable = false)
     private Date createAt;
+
+
+    public PostEntity(PostRequestDto postRequestDto) {
+        this.user = postRequestDto.getUser();
+        this.content = postRequestDto.getContent();
+        this.title = postRequestDto.getTitle();
+        this.createAt = postRequestDto.getCreateAt();
+    }
+
+    public PostEntity update(PostRequestDto postRequestDto){
+        this.title = postRequestDto.getTitle();
+        this.content = postRequestDto.getContent();
+
+        return this;
+    }
 }
