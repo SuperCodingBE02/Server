@@ -27,7 +27,6 @@ public class CommentDto {
 
     public static CommentDto toCommentDto(CommentEntity commentEntity) {
         CommentDto commentDto = new CommentDto();
-        commentDto.setPost(commentEntity.getPost());
         commentDto.setAuthor(commentEntity.getAuthor());
         commentDto.setContent(commentEntity.getContent());
         commentDto.setCreateAt(commentEntity.getCreateAt());

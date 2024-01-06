@@ -31,6 +31,8 @@ public class UserEntity {
     @Schema(description = "유저 작성 게시물")
     private List<PostEntity> posts;
 
+    private String role;
+
     public UserEntity(Long id, String email, String password) {
         this.id = id;
         this.email = email;

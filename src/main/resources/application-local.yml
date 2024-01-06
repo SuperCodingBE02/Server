@@ -14,6 +14,9 @@ spring:
     hibernate:
       ddl-auto: create
 
+  jwt:
+    secret: "vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb"
+
 springdoc:
   default-produces-media-type: application/json;charset=UTF-8
   default-consumes-media-type: application/json;charset=UTF-8

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.supercoding.server.common.utils.TokenProvider;
 import org.supercoding.server.web.dto.UserDTO;
 import org.supercoding.server.service.LoginService;
 import org.supercoding.server.web.entity.UserEntity;
@@ -16,6 +17,7 @@ import org.supercoding.server.web.entity.UserEntity;
 @RequestMapping("/api")
 public class LoginController {
     private final LoginService loginService;
+    private final TokenProvider tokenProvider;
 
 
     @PostMapping("/login")
@@ -34,10 +36,12 @@ public class LoginController {
             log.info("사용자가 입력한 일치하지 않느 비밀번호: " + password);
             return ResponseEntity.badRequest().body("Incorrect password");
         }
+        String token = tokenProvider.generateJwtToken(userDTO);
+        log.info("생성된 token = " + token);
 
 
         log.info("사용자가 입력한 비밀번호: " + password);
-        return ResponseEntity.ok("Login successful");
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/logout")
