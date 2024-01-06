@@ -9,7 +9,6 @@ import org.supercoding.server.repository.UserRepository;
 import org.supercoding.server.web.entity.UserEntity;
 
 @Service
-@Data
 @AllArgsConstructor
 public class LoginService {
     private final UserRepository userRepository;

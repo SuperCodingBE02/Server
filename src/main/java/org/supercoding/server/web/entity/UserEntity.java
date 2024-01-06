@@ -2,16 +2,18 @@ package org.supercoding.server.web.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "user_table")
 public class UserEntity {
     @Id
