@@ -33,14 +33,7 @@ public class UserEntity {
     @Schema(description = "유저 작성 게시물")
     private List<PostEntity> posts;
 
-    private String roles;
-
-    public List<String> getRoleList() {
-        if (!this.roles.isEmpty()) {
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
+    private String role;
 
     public UserEntity(Long id, String email, String password) {
         this.id = id;
