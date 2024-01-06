@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.supercoding.server.common.utils.TokenProvider;
@@ -45,10 +48,17 @@ public class LoginController {
         String token = tokenProvider.generateJwtToken(userDTO);
         log.info("생성된 token = " + token);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
 
         log.info("사용자가 입력한 비밀번호: " + password);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(token);
     }
+
+
+
 
     @Operation(summary = "로그아웃")
     @PostMapping("/logout")
