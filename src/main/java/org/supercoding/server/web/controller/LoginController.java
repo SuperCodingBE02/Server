@@ -52,8 +52,9 @@ public class LoginController {
         headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
 
         log.info("사용자가 입력한 비밀번호: " + password);
-        return new ResponseEntity<>(headers, HttpStatus.OK);
-
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(token);
     }
 
 
