@@ -8,9 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.supercoding.server.common.utils.TokenProvider;
-import org.supercoding.server.config.security.CustomAuthenticationEntryPoint;
 import org.supercoding.server.config.security.filter.JwtAuthorizationFilter;
+
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +26,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        // cors
+        http
+                .cors((cors) -> cors.configurationSource(corsConfigurationSource()));
 
         // csrf 비활
         http
@@ -65,4 +74,17 @@ public class SecurityConfig {
         return http.build();
     }
 
+
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
