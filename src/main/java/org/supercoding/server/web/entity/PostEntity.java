@@ -46,7 +46,6 @@ public class PostEntity {
 
 
     public PostEntity(PostRequestDto postRequestDto) {
-        this.user = postRequestDto.getUser();
         this.content = postRequestDto.getContent();
         this.title = postRequestDto.getTitle();
         this.createAt = postRequestDto.getCreateAt();

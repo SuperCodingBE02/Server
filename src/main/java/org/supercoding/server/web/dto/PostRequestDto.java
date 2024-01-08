@@ -15,8 +15,8 @@ import java.util.Date;
 @ToString
 public class PostRequestDto {
     //TODO string으로 바꿔야할까?
-    @Schema(description = "작성자", example = "홍길동")
-    private UserEntity user;
+    @Schema(description = "작성자 ID", example = "1")
+    private Long userId;
     @Schema(description = "글 제목", example = "곱창마렵다")
     private String title;
     @Schema(description = "글 본문")

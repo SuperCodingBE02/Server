@@ -2,9 +2,11 @@ package org.supercoding.server.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.supercoding.server.repository.PostRepository;
+import org.supercoding.server.repository.UserRepository;
 import org.supercoding.server.web.dto.CommentDto;
 import org.supercoding.server.web.dto.CommonResponseDto;
 import org.supercoding.server.web.dto.PostRequestDto;
@@ -18,14 +20,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     public CommonResponseDto addPost(PostRequestDto postRequestDto){
-        UserEntity user = new UserEntity(2L, "김소은", "1234");
-        postRequestDto.setUser(user);
+        log.info("[PostService] posrRequestDto = " + postRequestDto);
+
+        UserEntity userData = userRepository.findById(postRequestDto.getUserId()).orElse(null);
 
         PostEntity postEntity = new PostEntity(postRequestDto);
+        postEntity.setUser(userData);
+        log.info("[PostService] 저장될 postEntity = " + postEntity);
         PostEntity savePostEntity = postRepository.save(postEntity);
 
         CommonResponseDto commonResponseDto = new CommonResponseDto();
