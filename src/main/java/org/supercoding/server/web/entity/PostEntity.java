@@ -39,6 +39,11 @@ public class PostEntity {
     @Schema(description = "작성일")
     private Date createAt;
 
+    @PrePersist
+    protected void onCreate(){
+        createAt = new Date();
+    }
+
 
     @OneToMany(mappedBy = "post")
     @Schema(description = "게시물에 달린 댓글")
