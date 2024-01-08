@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.supercoding.server.web.dto.CommonResponseDto;
 import org.supercoding.server.web.dto.UserDTO;
 import org.supercoding.server.service.RegisterService;
 import org.supercoding.server.web.entity.UserEntity;
@@ -24,16 +25,20 @@ public class RegisterController {
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody UserDTO userDTO){
+    public ResponseEntity<CommonResponseDto> signup(@RequestBody UserDTO userDTO){
         log.info("회원가입 POST 요청");
         if(registerService.existsByEmail(userDTO.getEmail())){
             log.info("이메일: " + userDTO.getEmail());
-            return ResponseEntity.badRequest().body("Email already exists");
+            CommonResponseDto signupResult = new CommonResponseDto();
+            signupResult.setMessage("동일한 이메일이 존재합니다.");
+            return ResponseEntity.ok().body(signupResult);
         }
 
         registerService.saveUser(userDTO);
         log.info("들어온 정보: " + userDTO);
-        return ResponseEntity.ok("User signed up succesfully");
+        CommonResponseDto signupResult = new CommonResponseDto();
+        signupResult.setMessage("회원가입에 성공했습니다.");
+        return ResponseEntity.ok().body(signupResult);
     }
 
 
