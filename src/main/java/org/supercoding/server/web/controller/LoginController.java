@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.supercoding.server.common.utils.TokenProvider;
+import org.supercoding.server.web.dto.CommonResponseDto;
 import org.supercoding.server.web.dto.UserDTO;
 import org.supercoding.server.service.LoginService;
 import org.supercoding.server.web.entity.UserEntity;
@@ -29,21 +30,25 @@ public class LoginController {
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<CommonResponseDto> login(@RequestBody UserDTO userDTO) {
         log.info("로그인 POST 요청");
         String email = userDTO.getEmail();
         String password = userDTO.getPassword();
 
 
         if (!loginService.existsByEmail(email)) {
-            return ResponseEntity.badRequest().body("Email not found");
+            CommonResponseDto loginResult = new CommonResponseDto();
+            loginResult.setMessage("이메일이 존재하지 않습니다.");
+            return ResponseEntity.ok().body(loginResult);
         }
 
         UserEntity userEntity = loginService.getUserByEmail(email);
 
         if (!userEntity.getPassword().equals(password)) {
             log.info("사용자가 입력한 일치하지 않는 비밀번호: " + password);
-            return ResponseEntity.badRequest().body("Incorrect password");
+            CommonResponseDto loginResult = new CommonResponseDto();
+            loginResult.setMessage("비밀번호가 일치하지 않습니다.");
+            return ResponseEntity.ok().body(loginResult);
         }
         String token = tokenProvider.generateJwtToken(userDTO);
         log.info("생성된 token = " + token);
@@ -52,9 +57,9 @@ public class LoginController {
         headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
 
         log.info("사용자가 입력한 비밀번호: " + password);
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(token);
+        CommonResponseDto loginResult = new CommonResponseDto();
+        loginResult.setMessage("로그인에 성공하였습니다.");
+        return ResponseEntity.ok().body(loginResult);
     }
 
 
