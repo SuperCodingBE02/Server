@@ -59,7 +59,7 @@ public class LoginController {
         log.info("사용자가 입력한 비밀번호: " + password);
         CommonResponseDto loginResult = new CommonResponseDto();
         loginResult.setMessage("로그인에 성공하였습니다.");
-        return ResponseEntity.ok().body(loginResult);
+        return ResponseEntity.ok().headers(headers).body(loginResult);
     }
 
 

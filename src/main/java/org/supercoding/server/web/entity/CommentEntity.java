@@ -36,6 +36,11 @@ public class CommentEntity {
     @Schema(description = "작성일")
     private Date createAt;
 
+    @PrePersist
+    protected void onCreate(){
+        createAt = new Date();
+    }
+
     public static CommentEntity toCommentEntity(CommentDto commentDto) {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setPost(commentDto.getPost());

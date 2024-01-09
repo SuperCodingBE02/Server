@@ -33,6 +33,7 @@ public class UserEntity {
     @Schema(description = "유저 작성 게시물")
     private List<PostEntity> posts;
 
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private String role;
 
     public UserEntity(Long id, String email, String password) {
